@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deer on the Moon</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a2a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-align: center;
+        }
+        
+        header {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #a8edea, #fed6e3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .moon-scene {
+            height: 500px;
+            position: relative;
+            margin: 40px 0;
+            background: url('https://assets.codepen.io/1231637/moon.png') no-repeat center center;
+            background-size: contain;
+        }
+        
+        .deer {
+            position: absolute;
+            width: 500px;  /* 放大两倍 */
+            height: 500px; /* 放大两倍 */
+            bottom: 50px;
+            left: 65%;
+            transform: translateX(0) rotate(0deg);
+            animation: float 3s ease-in-out infinite;
+            background: url('deer.png') no-repeat center center;
+            background-size: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        
+        .flying-deer {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: -200px;
+            background-size: contain;
+            z-index: 10;
+            animation: flyToMoon 5s linear forwards;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            opacity: 0;
+        }
+        
+        @keyframes flyToMoon {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            70% {
+                transform: translate(calc(65vw - 150px), -150px) rotate(360deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(65vw - 150px), -150px) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        .buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-x {
+            background-color: #000000;
+            color: white;
+            gap: 8px;
+            border: 1px solid #555555;
+        }
+        
+        .btn-x:hover {
+            background-color: #111111;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-wiki {
+            background-color: #f8f9fa;
+            color: #000000;
+            gap: 8px;
+            border: 1px solid #a2a9b1;
+        }
+        
+        .btn-wiki:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .x-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        
+        .wiki-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .story {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+        
+        footer {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-top: 50px;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 1s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            from {
+                opacity: 0.3;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <header>
+        <h1>Deer on the Moon</h1>
+        <p>The incredible journey of the first deer to land on the lunar surface</p>
+    </header>
+    
+    <div class="container">
+        <div class="moon-scene">
+            <div class="deer" id="deer"></div>
+        </div>
+        
+        <div class="buttons">
+            <a href="https://x.com/Deer_Luna_" class="btn btn-x" target="_blank">
+                <svg class="x-icon" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                Follow on X
+            </a>
+        </div>
+        
+        <div class="story" id="story">
+            <h2>The Lunar Deer Adventure</h2>
+            <p>In the year 2042, NASA made an incredible breakthrough in interspecies space travel. After years of secret testing, they successfully sent the first deer to the Moon.</p>
+            <p>The deer, named Luna, was specially trained for the mission. She wore a custom-made spacesuit that allowed her to hop gracefully in the low gravity environment.</p>
+            <p>Luna's mission objectives included:</p>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>Testing lunar vegetation growth potential</li>
+                <li>Demonstrating animal adaptability in low gravity</li>
+                <li>Collecting data on long-term space exposure effects on mammals</li>
+                <li>Being adorable (which she excelled at)</li>
+            </ul>
+            <p>After 30 days on the lunar surface, Luna returned safely to Earth, where she was celebrated as a pioneer and given all the apples she could eat.</p>
+        </div>
+        
+        <div class="buttons">
+            <a href="https://en.wikipedia.org/wiki/Moon_landing" class="btn btn-wiki" target="_blank">
+                <img class="wiki-icon" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/20px-Wikipedia-logo-v2.svg.png" alt="Wikipedia">
+                Space News
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Deer" class="btn btn-wiki" target="_blank">
+                <img class="wiki-icon" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/20px-Wikipedia-logo-v2.svg.png" alt="Wikipedia">
+                Deer Facts
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; Deer Space Program | All Rights Reserved</p>
+    </footer>
+    
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+        
+        // Create 60 flying deer elements
+        for (let i = 1; i <= 83; i++) {
+            const flyingDeer = document.createElement('div');
+            flyingDeer.className = 'flying-deer';
+            flyingDeer.id = `flyingDeer${i}`;
+            flyingDeer.style.backgroundImage = `url('deer.moon${i}.png')`;
+            flyingDeer.style.top = `${Math.random() * 70 + 15}%`;
+            document.body.insertBefore(flyingDeer, document.querySelector('.container'));
+        }
+
+        // Function to launch deer sequentially
+        function launchDeerSequentially() {
+            let currentDeer = 1;
+            
+            const interval = setInterval(() => {
+                if (currentDeer > 83) {
+                    clearInterval(interval);
+                    // Restart the sequence after all deer have flown
+                    setTimeout(launchDeerSequentially, 2000);
+                    return;
+                }
+                
+                const deer = document.getElementById(`flyingDeer${currentDeer}`);
+                // Reset position and animation
+                deer.style.left = '-200px';
+                deer.style.top = `${Math.random() * 70 + 15}%`;
+                deer.style.animation = 'none';
+                deer.offsetHeight; // Trigger reflow
+                deer.style.animation = 'flyToMoon 5s linear forwards';
+                
+                currentDeer++;
+            }, 2000); // 2 second interval between each deer
+        }
+
+        // Start the deer sequence when page loads
+        window.onload = function() {
+            const deer = document.getElementById('deer');
+            deer.style.animation = 'float 3s ease-in-out infinite';
+            
+            // Start the flying deer sequence
+            launchDeerSequentially();
+        };
+    </script>
+</body>
+</html>
